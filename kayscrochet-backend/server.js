@@ -12,6 +12,7 @@ const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
 const rateLimit = require('express-rate-limit');
 const { body, param, validationResult } = require('express-validator');
 const { limiter, corsOptions } = require('./config/corsOptions.js');
+const stateRoutes = require('./routes/api/states');
 const PORT = process.env.PORT;
 
 // for environment variables
@@ -289,6 +290,9 @@ app.put('/items/:id', [
     res.status(400).json({ message: error.message });
   }
 });
+
+//  admin's state/fun facts routes api\states.js
+app.use('/states', stateRoutes);
 
 // mongodb server port to use after connect
 mongoose.connection.once("open", () => {
