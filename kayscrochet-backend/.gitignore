@@ -4,10 +4,3 @@ node_modules/
 # Environment variables
 .env
 
-# Logs
-logs/
-
-# Directory for storing persistent data
-data/
-
-middleware/
