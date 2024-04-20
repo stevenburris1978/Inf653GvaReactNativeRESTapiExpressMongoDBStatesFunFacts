@@ -1,3 +1,6 @@
+const rateLimit = require('express-rate-limit');
+const cors = require('cors');
+
 const corsOptions = {
     origin: true,
     credentials: true,
@@ -11,7 +14,6 @@ const limiter = rateLimit({
 
 module.exports = {
     corsOptions,
-    limiter,
-    helmetOptions
+    limiter
 };
 
