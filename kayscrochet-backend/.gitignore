@@ -10,5 +10,3 @@ node_modules/
 # Directory for storing persistent data
 data/
 
-#admin user hash creator file
-
