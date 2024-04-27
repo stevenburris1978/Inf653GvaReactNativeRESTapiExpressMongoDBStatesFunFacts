@@ -4,21 +4,21 @@ import { Alert } from "react-native";
 const TaskContext = createContext();
 
 export const TaskProvider = ({ children }) => {
-  const [itemList, setItemList] = useState([]);
-  const [itemEdit, setItemEdit] = useState({
-    item: {},
+  const [stateList, setStateList] = useState([]);
+  const [stateEdit, setStateEdit] = useState({
+    state: {},
     edit: false,
   });
 
-  // Fetch items from the backend
-  const fetchItems = async () => {
+  // Fetch state info from the backend
+  const fetchStates = async () => {
     try {
-      const response = await fetch('https://kayscrochetmobileapp-5c1e1888702b.herokuapp.com/items');
+      const response = await fetch('https://statefunfactsmobileapp-0911da4049ba.herokuapp.com/states');
       const data = await response.json();
       if (response.ok) {
-        setItemList(data);
+        setStateList(data);
       } else {
-        console.error('Error fetching items:', data);
+        console.error('Error fetching state info:', data);
       }
     } catch (error) {
       console.error('Network error:', error);
@@ -26,34 +26,47 @@ export const TaskProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchItems();
+    fetchStates();
   }, []);
 
-  // Add New Item
-  const addItem = async (newItem) => {
+  // Add New state info
+  const addState = async (newItem) => {
     try {
-      const response = await fetch('https://kayscrochetmobileapp-5c1e1888702b.herokuapp.com/items', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newItem),
-      });
-      if (response.ok) {
-        const addedItem = await response.json();
-        setItemList(prevItems => [...prevItems, addedItem]);
+      // Check if the state info already exists
+      const existingState = stateList.find(state => state.stateCode === newItem.stateCode);
+      if (existingState) {
+        const updatedState = {
+          ...existingState,
+          funfacts: [...existingState.funfacts, newItem.funfacts].flat(), 
+          images: [...existingState.images, ...newItem.images], 
+          date: newItem.date, 
+        };
+        await updateState(existingState._id, updatedState); 
       } else {
-        console.error('Error adding item:', await response.json());
+        // Add new state info
+        const response = await fetch('https://statefunfactsmobileapp-0911da4049ba.herokuapp.com/states', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newItem),
+        });
+        if (response.ok) {
+          const addedState = await response.json();
+          setStateList(prevStates => [...prevStates, addedState]);
+        } else {
+          console.error('Error adding state info:', await response.json());
+        }
       }
     } catch (error) {
       console.error('Network error:', error);
     }
-  };
+  };  
 
-  // Delete Item
-  const deleteItem = (_id) => {
+  // Delete state info
+  const deleteState = (_id) => {
     Alert.alert(
-      "Delete Item",
+      "Delete State Info",
       "Are you sure you want to delete?",
       [
         {
@@ -64,11 +77,11 @@ export const TaskProvider = ({ children }) => {
           text: "Delete",
           onPress: async () => {
             try {
-              const response = await fetch(`https://kayscrochetmobileapp-5c1e1888702b.herokuapp.com/items/${_id}`, {
+              const response = await fetch(`https://statefunfactsmobileapp-0911da4049ba.herokuapp.com/states/${_id}`, {
                 method: 'DELETE',
               });
               if (response.ok) {
-                fetchItems(); 
+                fetchStates(); 
               } else {
                 
                 console.error('Error deleting item:', await response.json());
@@ -82,36 +95,41 @@ export const TaskProvider = ({ children }) => {
     );
   };
 
-  // Edit Item
-  const editItem = (item) => {
-    setItemEdit({ item, edit: true });
+  // Edit State info
+  const editState = (state) => {
+    setStateEdit({ state, edit: true });
   };
 
-  // Update Item
-  const updateItem = async (_id, updItem) => {
+  // Update State info
+  const updateState = async (_id, updState) => {
     try {
-      console.log(`Updating item with id: ${_id} and data: `, updItem);
-      const response = await fetch(`https://kayscrochetmobileapp-5c1e1888702b.herokuapp.com/items/${_id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updItem),
-      });
+        const response = await fetch(`https://statefunfactsmobileapp-0911da4049ba.herokuapp.com/states/${_id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updState),
+        });
 
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.message || "Error updating item.");
-      }
+        const updatedState = await response.json();
+        if (!response.ok) {
+            throw new Error(updatedState.message || "Error updating state info.");
+        }
+
+        // Update local state list
+        setStateList(prevStateList => prevStateList.map(state => 
+            state._id === _id ? { ...state, ...updatedState } : state
+        ));
     } catch (error) {
-      console.error('Network error:', error);
-      throw error;
+        console.error('Network error:', error);
+        throw error;
     }
-  };
+};
+
 
   return (
     <TaskContext.Provider
-      value={{ itemList, addItem, editItem, updateItem, deleteItem, itemEdit, fetchItems }}
+      value={{ stateList, addState, editState, updateState, deleteState, stateEdit, fetchStates }}
     >
       {children}
     </TaskContext.Provider>

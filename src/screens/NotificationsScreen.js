@@ -1,27 +1,27 @@
 import React, { useContext } from 'react';
 import { FlatList, StyleSheet, View, SafeAreaView, Text } from 'react-native';
 import Constants from "expo-constants";
-import Items from '../components/Item/Items';
+import States from '../components/Item/Items';
 import TaskContext from "../context/TaskContext";
 
 function NotificationsScreen() {
-
-  // shows recent notifications
-  const { itemList } = useContext(TaskContext);
+  const { stateList } = useContext(TaskContext);
 
   return (
     <SafeAreaView style={styles.screen}>
-      <Text style={styles.screenTitle}>Notifications:</Text>
+      <Text style={styles.screenTitle}>New State Fun Facts:</Text>
       <View style={styles.itemScreen}>
         <FlatList
-          data={itemList}
+          data={stateList}
           keyExtractor={(item) => item._id.toString()}
           renderItem={({ item }) => (
-            <Items
-              description={item.description}
+            <States
+              stateCode={item.stateCode}
+              funfacts={item.funfacts}
               date={item.date}  
               images={item.images}
               showSwipeIcon={false}
+              showEdit={false}
             />
           )}
         />

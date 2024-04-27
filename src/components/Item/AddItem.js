@@ -4,14 +4,16 @@ import DateTimePicker from "react-native-modal-datetime-picker";
 import TaskContext from "../../context/TaskContext";
 import * as ImagePicker from 'expo-image-picker';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Picker } from '@react-native-picker/picker';
 
-export default function AddItem() {
-  const { addItem } = useContext(TaskContext);
-  const [description, setDescription] = useState("");
+export default function AddState() {
+  const { addState } = useContext(TaskContext);
+  const [funfacts, setFunfacts] = useState("");
   const [images, setImages] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [displayDate, setDisplayDate] = useState(""); 
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false); 
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [stateCode, setStateCode] = useState(""); 
 
   const CheckIcon = () => (
     <MaterialCommunityIcons name="check-circle" size={24} color="hsl(270, 50%, 60%)" style={styles.checkIcon} />
@@ -59,13 +61,13 @@ export default function AddItem() {
     }
   };
 
-  const uploadImagesAndAddItem = async () => {
+  const uploadImagesAndAddState = async () => {
     let imageUrls = [];
     for (const imageUri of images) {
       const base64 = await uriToBase64(imageUri);
       if (base64) {
         try {
-          const response = await fetch('https://kayscrochetmobileapp-5c1e1888702b.herokuapp.com/api/upload', {
+          const response = await fetch('https://statefunfactsmobileapp-0911da4049ba.herokuapp.com/api/upload', {
             method: 'POST',
             body: JSON.stringify({ image: base64 }),
             headers: {
@@ -91,14 +93,16 @@ export default function AddItem() {
       return;
     }
 
-    const itemData = {
-      description,
+    const stateData = {
+      stateCode,
+      funfacts,
       date: selectedDate, 
       images: imageUrls,
     };
   
-    addItem(itemData);
-    setDescription("");
+    addState(stateData);
+    setFunfacts("");
+    setStateCode("");
     setSelectedDate(null);
     setDisplayDate("");
     setImages([]);
@@ -109,12 +113,12 @@ export default function AddItem() {
   };
 
   const handleSubmit = async () => {
-    if (!description || !selectedDate) {
-      Alert.alert("Please enter description and date.");
+    if (!funfacts || !selectedDate || !stateCode) {
+      Alert.alert("Please select state, fun fact, and date.");
       return;
     }
     console.log("Sending date:", selectedDate);
-    await uploadImagesAndAddItem();
+    await uploadImagesAndAddState();
   };
 
   const showDatePicker = () => {
@@ -138,17 +142,32 @@ export default function AddItem() {
       <SafeAreaView style={styles.screen}>
         <View style={styles.viewContainer}>
           <Text style={styles.title}>Admin Notifications</Text>
-          
+          <Text style={styles.inputLabel}>Select State:</Text>
+          <View style={styles.inputRow}>
+            <Picker
+              selectedValue={stateCode}
+              onValueChange={(stateValue, stateIndex) => setStateCode(stateValue)}
+              style={styles.input}
+              mode="dropdown" 
+            >
+              {['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN',
+              'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'].map((state) => (
+                <Picker.Item label={state} value={state} key={state} />
+              ))}
+            </Picker>
+            {stateCode ? <CheckIcon /> : null}
+          </View>
+
           <View style={styles.inputRow}>
             <TextInput
               style={styles.input}
-              placeholder="Enter New Item Description"
-              onChangeText={(description) => setDescription(description)}
-              value={description}
+              placeholder="Enter New State Fun Fact"
+              onChangeText={(funfacts) => setFunfacts(funfacts)}
+              value={funfacts}
               multiline={true} 
               maxLength={10000}
             />
-            {description ? <CheckIcon /> : null}
+            {funfacts ? <CheckIcon /> : null}
           </View>
 
           <View style={styles.inputRow}>
@@ -271,7 +290,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     margin: "3%",
-    
   },
   dateRow: {
     flexDirection: 'row',
@@ -281,5 +299,9 @@ const styles = StyleSheet.create({
     margin: "3%",
 
   },
-  
+  inputLabel: {
+    color: "hsl(270, 50%, 60%)",
+    marginLeft: 8,
+    marginBottom: -8
+  },
 });

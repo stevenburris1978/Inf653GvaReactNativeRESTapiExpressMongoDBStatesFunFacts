@@ -4,9 +4,9 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const ContactScreen = () => {
     
-    // opens iOS and Android default email app to email kayscrochetus@gmail.com
+    // opens iOS and Android default email app to email s_burris@mail.fhsu.edu@gmail.com
     const handleEmailPress = () => {
-        Linking.openURL('mailto:kayscrochetus@gmail.com');
+        Linking.openURL('mailto:s_burris@mail.fhsu.edu');
     };
 
     return (
@@ -19,21 +19,10 @@ const ContactScreen = () => {
             </Text>
             <TouchableOpacity onPress={handleEmailPress}>
                 <Text style={styles.textemail}>
-                    kayscrochetus@gmail.com (SEND)
+                    s_burris@mail.fhsu.edu (SEND)
                 </Text>
             </TouchableOpacity>
-            <Text style={styles.header}>Links</Text>
-            <Text style={styles.text}>
-                Click the Instagram and TikTok icons to contact Kay's Crochet:
-            </Text>
-            <View style={styles.socialMediaContainer}>
-                <TouchableOpacity onPress={() => Linking.openURL('https://www.instagram.com/kayss.crochet')} style={styles.socialIcon}>
-                    <FontAwesome5 name="instagram" size={30} color="hsl(270, 50%, 60%)" />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => Linking.openURL('https://www.tiktok.com/@kaysscrochet')} style={styles.socialIcon}>
-                    <FontAwesome5 name="tiktok" size={30} color="hsl(270, 50%, 60%)" />
-                </TouchableOpacity>
-            </View>
+
         </ScrollView>
     );
 }

@@ -2,7 +2,7 @@
   "expo": {
     "name": "Kay's Crochet",
     "slug": "kayscrochet",
-    "version": "3.3.3",
+    "version": "4.0.3",
     "orientation": "default",
     "icon": "./assets/icon.png",
     "notification": {
@@ -23,8 +23,16 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.stevenburris1978.kayscrochet",
       "infoPlist": {
-        "NSPhotoLibraryUsageDescription": "This app requires access to the photo library to upload images.",
-        "NSCameraUsageDescription": "This app requires access to the camera to take photos."
+        "NSPhotoLibraryUsageDescription": "This app requires access to the photo library for admin to upload images of items to the app.",
+        "NSCameraUsageDescription": "This app requires access to the camera for admin to take photos of itmes to put in the app.",
+        "NSPrivacyAccessedAPITypes": [
+          {
+            "NSPrivacyAccessedAPICategoryFileTimestamp": "Used for organizing the timestamps of images or files when they are uploaded to ensure they are displayed in the correct order.",
+            "NSPrivacyAccessedAPICategoryDiskSpace": "Used to check available disk space to ensure there is sufficient space before saving images locally.",
+            "NSPrivacyAccessedAPICategorySystemBootTime": "Used to record app usage statistics that help optimize app performance. No personal data is collected.",
+            "NSPrivacyAccessedAPICategoryUserDefaults": "Used to save user settings within the app, enhancing the user experience by remembering your preferences across sessions."
+          }
+        ]
       }
       
     },
@@ -35,7 +43,7 @@
       },
       "package": "com.stevenburris1978.kayscrochet",
       "permissions": ["CAMERA", "WRITE_EXTERNAL_STORAGE"],
-      "versionCode": 19,
+      "versionCode": 22,
       "googleServicesFile": "./google-services.json"
     },
     "web": {

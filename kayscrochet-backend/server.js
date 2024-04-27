@@ -3,7 +3,7 @@ const connectDB = require('./config/dbConfig');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const Item = require('./models/item');
+const State = require('./models/item');
 const helmet = require('helmet');
 const PushToken = require('./models/pushToken');
 const cors = require('cors');
@@ -48,10 +48,11 @@ app.use(helmet({
 }));
 
 // Send push notifications to iOS and Android Devices for New Items Added
-const sendPushNotification = async (itemData) => {
+const sendPushNotification = async (stateData) => {
   try {
     const tokens = await PushToken.find({});
     const expo = new Expo();
+
     const messages = tokens.map(pushToken => {
       if (!Expo.isExpoPushToken(pushToken.token)) {
         console.error(`Push token ${pushToken.token} is not a valid Expo push token`);
@@ -61,7 +62,7 @@ const sendPushNotification = async (itemData) => {
         to: pushToken.token,
         sound: 'default',
         title: "Kay's Crochet Has New Items!",
-        body: itemData.description,
+        body: stateData.funfacts[stateData.funfacts.length - 1],
       };
     }).filter(message => !!message);
 
@@ -186,18 +187,19 @@ app.post('/api/upload', async (req, res) => {
 
 
 // GET all items
-app.get('/items', async (req, res) => {
+app.get('/states', async (req, res) => {
     try {
-      const items = await Item.find({});
-      res.json(items);
+      const states = await State.find({});
+      res.json(states);
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
   });
   
 // POST a new item
-app.post('/items', [
-  body('description').trim().escape(),
+app.post('/states', [
+  body('stateCode').trim().notEmpty().withMessage('State code is required'),
+  body('funfacts').trim().escape(),
   body('date').isISO8601().toDate(),
   body('images').isArray(),
   body('images.*').isURL()
@@ -207,23 +209,24 @@ app.post('/items', [
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const newItem = new Item({
-    description: req.body.description,
+  const newState = new State({
+    stateCode: req.body.stateCode,
+    funfacts: req.body.funfacts,
     date: req.body.date,
     images: req.body.images
   });
 
   try {
-    const savedItem = await newItem.save();
-    sendPushNotification(savedItem);
-    res.status(201).json(savedItem);
+    const savedState = await newState.save();
+    sendPushNotification(savedState);
+    res.status(201).json(savedState);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
 
 // DELETE an item
-app.delete('/items/:id', [
+app.delete('/states/:id', [
   param('id').isMongoId(),
 ], async (req, res) => {
   const errors = validationResult(req);
@@ -232,11 +235,11 @@ app.delete('/items/:id', [
   }
 
   try {
-    const item = await Item.findByIdAndDelete(req.params.id);
-    if (!item) {
-      return res.status(404).json({ message: 'Item not found' });
+    const state = await State.findByIdAndDelete(req.params.id);
+    if (!state) {
+      return res.status(404).json({ message: 'State not found' });
     }
-    res.json({ message: 'Item deleted' });
+    res.json({ message: 'State deleted' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -265,10 +268,12 @@ app.post('/save-push-token', [
   }
 });
 
-// update an item description
-app.put('/items/:id', [
-  param('id').isMongoId().withMessage('Invalid item ID'), 
-  body('description').trim().escape()
+// update an item funfact
+app.put('/states/:id', [
+  param('id').isMongoId().withMessage('Invalid state ID'), 
+  body('funfacts').isArray(),
+  body('images').isArray(),
+  body('date').isISO8601().toDate(),
 ], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -276,15 +281,17 @@ app.put('/items/:id', [
   }
 
   try {
-    const item = await Item.findById(req.params.id);
-    if (!item) {
-      return res.status(404).json({ message: 'Item not found' }); 
+    const state = await State.findById(req.params.id);
+    if (!state) {
+      return res.status(404).json({ message: 'State not found' }); 
     }
 
-    item.description = req.body.description || item.description;
+    state.funfacts = req.body.funfacts;
+    state.images = req.body.images;
+    state.date = req.body.date;
 
-    const updatedItem = await item.save();
-    res.json(updatedItem);
+    const updatedState = await state.save();
+    res.json(updatedState);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

@@ -3,33 +3,29 @@ import { Modal, TouchableOpacity, ActivityIndicator, Text, StyleSheet, View, Ima
 import { Swipeable } from "react-native-gesture-handler";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-export default function Items({
-  description,
+export default function States({
+  stateCode,
+  funfacts,
   date,
   images,
   renderRightActions,
-  showSwipeIcon = true
+  showSwipeIcon = true,
+  showEdit = true,
 }) {
 
   const formatDate = (dateString) => {
     try {
-
       const dateObj = new Date(dateString);
-      if (!isNaN(dateObj.getTime())) {
-        return dateObj.toLocaleDateString("en-US", {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric'
-        });
-      } else {
-        return "Invalid Date";
-      }
+      return !isNaN(dateObj.getTime())
+        ? dateObj.toLocaleDateString("en-US", {
+            year: 'numeric', month: 'short', day: 'numeric'
+          })
+        : "Invalid Date";
     } catch (error) {
       console.error("Error formatting date:", error);
       return "Error in date";
     }
   };
-  
 
   const renderImages = () => {
     return images?.map((img, index) => {
@@ -73,16 +69,39 @@ export default function Items({
   return (
     <Swipeable renderRightActions={renderRightActions}>
 
-          <View style={styles.mainContainer}>       
-            <Text style={styles.description}>{description}</Text>
+          <View style={styles.mainContainer}> 
+          <Text style={styles.stateCode}>{stateCode}</Text>      
+          <View style={styles.descriptionContainer}>
+            {funfacts.map((fact, index) => (
+              <Text key={index} style={styles.description}>
+                {index + 1}. {fact}
+              </Text>
+            ))}
+          </View>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-              {renderImages()}
+              {images.map((img, index) => (
+                <View key={index} style={{ marginLeft: 10 }}>
+                  <Image
+                    source={{ uri: img }}
+                    style={{
+                      borderWidth: 2,
+                      borderColor: 'hsl(270, 50%, 60%)',
+                      height: 125,
+                      width: 125,
+                      resizeMode: 'contain',
+                      borderRadius: 10,
+                      marginBottom: 2,
+                    }}
+                  />
+                </View>
+              ))}
             </View>
             <View style={styles.rowContainer}>
             <Text style={styles.date}>{formatDate(date)}</Text>
-                {showSwipeIcon && 
-                  <MaterialCommunityIcons name="gesture-swipe-left" size={30} color="hsl(270, 50%, 60%)" />
-                }
+            {showEdit && <Text style={styles.edit}>                                     Edit</Text>}
+            {showSwipeIcon && 
+              <MaterialCommunityIcons name="gesture-swipe-left" size={30} color="hsl(270, 50%, 60%)" marginRight={25} />
+            } 
             </View>
           </View>
         
@@ -124,6 +143,22 @@ const styles = StyleSheet.create({
         color: 'hsl(270, 50%, 60%)',
         backgroundColor: "#F7E7F8",
         marginTop: 10,
+        fontWeight: "bold",
+        fontSize: 14,
+      },
+      edit: {
+        padding: 5,
+        color: 'hsl(270, 50%, 60%)',
+        backgroundColor: "#F7E7F8",
+        marginTop: 10,
+        fontWeight: "bold",
+        fontSize: 14,
+        alignItems: 'center',
+      },
+      stateCode: {
+        padding: 5,
+        color: 'hsl(270, 50%, 60%)',
+        backgroundColor: "#F7E7F8",
         fontWeight: "bold",
         fontSize: 14,
       },

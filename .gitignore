@@ -36,14 +36,18 @@ yarn-error.*
 
 kayscrochet-backend/.expo
 
-
-
-kayscrochet-backend/config
-
 kayscrochet-backend/.env
+
+kayscrochet-backend/node_modules/
 
 .idea/
 
 %ProgramData%/
 
-google-services.json
+funfacts-backend/.env
+
+funfacts-backend/node_modules
+
+funfacts-backend/.env
+
+google-services(K).json

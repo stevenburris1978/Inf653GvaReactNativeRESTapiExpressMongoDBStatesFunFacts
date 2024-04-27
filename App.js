@@ -64,7 +64,7 @@ async function registerForPushNotificationsAsync() {
 // sends Expo push token to Mongodb through Express server on Heroku
 async function sendPushTokenToBackend(token) {
   try {
-    const response = await fetch('https://kayscrochetmobileapp-5c1e1888702b.herokuapp.com/save-push-token', {
+    const response = await fetch('https://statefunfactsmobileapp-0911da4049ba.herokuapp.com/save-push-token', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

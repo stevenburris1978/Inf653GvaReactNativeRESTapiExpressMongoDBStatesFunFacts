@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
 
-const itemSchema = new mongoose.Schema({
-  description: String,
-  date: Date,
+const stateSchema = new mongoose.Schema({
+  stateCode: { type: String, required: true, unique: true },
+  funfacts: [String],
   images: [String],
+  date: Date,
 });
 
-const Item = mongoose.model('Item', itemSchema);
+const State = mongoose.model('State', stateSchema);
 
-module.exports = Item;
+module.exports = State;

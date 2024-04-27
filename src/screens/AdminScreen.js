@@ -1,50 +1,95 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { FlatList, Modal, ScrollView, StyleSheet, View, TextInput, TouchableOpacity, TouchableWithoutFeedback, Text, Alert, SafeAreaView } from 'react-native';
-import AddItem from '../components/Item/AddItem';
+import AddState from '../components/Item/AddItem';
 import Constants from "expo-constants";
-import Items from '../components/Item/Items';
+import States from '../components/Item/Items';
 import TaskContext from "../context/TaskContext";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AuthContext } from '../context/AuthContext';
 
 const AdminScreen = () => {
 
-  const { itemList, deleteItem, editItem, updateItem, fetchItems } = useContext(TaskContext);
+  const { stateList, deleteState, editState, updateState, fetchStates } = useContext(TaskContext);
   const [modalVisible, setModalVisible] = useState(false);
-  const [description, setDescription] = useState("");
-  const [itemId, setItemId] = useState(null);
+  const [funfacts, setFunfacts] = useState([]);
+  const [stateId, setStateId] = useState(null);
+  const [images, setImages] = useState([]);
   const { userToken } = useContext(AuthContext);
 
-  const handleEditItem = (item) => {
-    setItemId(item._id);
-    setDescription(item.description);
+  const handleEditState = (state) => {
+    setStateId(state._id);
+    setFunfacts(Array.isArray(state.funfacts) ? state.funfacts : []);
+    setImages(state.images || []);
     setModalVisible(true);
-    editItem(item);
+    editState(state);
   };
   
-  // make the edit description modal open
+  // make the edit fun facts modal open
   const handleAdminPress = () => {
     setModalVisible(false);
   };
   
-  // finish update an item description
-  const handleUpdateItem = async () => {
-    if (itemId) {
+  // finish update a state fun fact
+  const handleUpdateState = async () => {
+    if (stateId) {
       try {
-        await updateItem(itemId, { description });
+        const updatedData = {
+          funfacts, 
+          images: images,
+          date: new Date().toISOString(),
+        };
+        await updateState(stateId, updatedData);
         setModalVisible(false);
-        await fetchItems(); 
+        await fetchStates();
       } catch (error) {
-        Alert.alert('Update Error', 'Failed to update the item.');
+        Alert.alert('Update Error', 'Failed to update the state info.');
         console.error('Update error:', error);
       }
     }
   };
+  
+  const handleDeleteFunFact = (index) => {
+    Alert.alert(
+        "Delete Fun Fact",
+        "Are you sure you want to delete this fun fact?",
+        [
+            { text: "Cancel", style: "cancel" },
+            { 
+                text: "Delete", 
+                onPress: () => setFunfacts(currentFunfacts => currentFunfacts.filter((_, i) => i !== index)) 
+            }
+        ]
+    );
+};
+
+
+
+  const renderFunFactsInputs = () => {
+    return funfacts.map((fact, index) => (
+        <View key={index} style={styles.funFactContainer}>
+            <TextInput
+                style={styles.input}
+                placeholder="Enter State's Fun Fact"
+                value={fact}
+                onChangeText={(text) => {
+                    const updatedFunfacts = [...funfacts];
+                    updatedFunfacts[index] = text;
+                    setFunfacts(updatedFunfacts);
+                }}
+            />
+            <TouchableOpacity 
+                style={styles.deleteButton} 
+                onPress={() => handleDeleteFunFact(index)}>
+                <Text style={styles.deleteButtonText}>Delete</Text>
+            </TouchableOpacity>
+        </View>
+    ));
+};
 
   // check if the admin is authenticated and show Admin notifications screen
   const checkAdminAuth = async () => {
     try {
-      const response = await fetch('https://kayscrochetmobileapp-5c1e1888702b.herokuapp.com/admin/check-auth', {
+      const response = await fetch('https://statefunfactsmobileapp-0911da4049ba.herokuapp.com/admin/check-auth', {
         headers: {
           'Authorization': `Bearer ${userToken}`,
         },
@@ -67,25 +112,25 @@ const AdminScreen = () => {
     checkAdminAuth();
   }, []);
 
-  // below is the view to show the admin add item component and the item's list in one FlatList component
+  // below is the view to show the admin add state info component and the states' list component in one FlatList component
   return (
 <SafeAreaView style={styles.screen}>
     
       <FlatList
-        ListHeaderComponent={<AddItem />}
+        ListHeaderComponent={<AddState />}
         ListHeaderComponentStyle={styles.headerComponent}
-        data={itemList.filter(item => item)}
+        data={stateList}
         keyExtractor={(item) => item._id.toString()}
         renderItem={({ item }) => (
-          <Items
-            description={item.description}
+          <States
+            stateCode={item.stateCode}
+            funfacts={item.funfacts}
             date={item.date} 
             images={item.images}
-            
             renderRightActions={() => (
 
               <View style = {styles.actionsContainer}>
-                <TouchableWithoutFeedback onPress={() => handleEditItem(item)}>                   
+                <TouchableWithoutFeedback onPress={() => handleEditState(item)}>                   
                   <View style={styles.pencilContainer}>
                     <MaterialCommunityIcons 
                       name="pencil"
@@ -94,7 +139,7 @@ const AdminScreen = () => {
                     />                   
                   </View>
                 </TouchableWithoutFeedback>
-                <TouchableWithoutFeedback onPress={() => deleteItem(item._id)}>                
+                <TouchableWithoutFeedback onPress={() => deleteState(item._id)}>                
                   <View style={styles.trashContainer}>
                     <MaterialCommunityIcons 
                       name="trash-can"
@@ -114,14 +159,9 @@ const AdminScreen = () => {
 
         <Modal visible={modalVisible} animationType="slide">
           <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Edit Details</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Item's Description"
-              value={description}
-              onChangeText={setDescription}
-            />
-            <TouchableOpacity style={styles.button} onPress={handleUpdateItem}>
+            <Text style={styles.modalTitle}>Edit Fun Fact</Text>
+            {renderFunFactsInputs()}
+            <TouchableOpacity style={styles.button} onPress={handleUpdateState}>
               <Text style={styles.buttonText}>Update</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={handleAdminPress}>
@@ -234,6 +274,23 @@ const styles = StyleSheet.create({
   headerComponent: {
     paddingTop: 13,
   },
+  funFactContainer: {
+    flexDirection: 'column', 
+    marginBottom: 20,
+    alignItems: 'stretch', 
+  },
+  deleteButton: {
+    backgroundColor: 'hsl(270, 50%, 60%)',
+    padding: 10,
+    borderRadius: 5,
+    alignSelf: 'center',
+  },
+  deleteButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
+
 });
 
-export default AdminScreen;
+export default AdminScreen; 

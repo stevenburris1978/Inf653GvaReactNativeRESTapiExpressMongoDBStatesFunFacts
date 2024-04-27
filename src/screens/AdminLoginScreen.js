@@ -12,7 +12,7 @@ const AdminLoginScreen = ({ navigation }) => {
   // log into the Admin Notifications screen
   const handleLogin = async () => {
     try {
-      const response = await fetch('https://kayscrochetmobileapp-5c1e1888702b.herokuapp.com/admin/login', {
+      const response = await fetch('https://statefunfactsmobileapp-0911da4049ba.herokuapp.com/admin/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

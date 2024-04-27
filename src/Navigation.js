@@ -13,6 +13,7 @@ import NotificationsScreen from './screens/NotificationsScreen';
 import CustomDrawerContent from './components/CustomDrawerContent';
 import CustomHeader from './components/CustomHeader';
 import CustomScreenHeader from './components/CustomScreenHeader';
+import CustomScreenHeaderTwo from './components/CustomScreenHeaderTwo';
 
 import { useAuth } from './context/AuthContext';
 
@@ -35,11 +36,11 @@ const { isAuthenticated } = useAuth();
         name="Home" 
         component={HomeScreen} 
         options={{
-          headerTitle: () => <View style={{ height: 0 }} />,
+          headerTitle: () => <CustomScreenHeaderTwo title="HOME" showBack={false} />, 
           drawerLabel: () => (
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
               <Icon name="arrow-back" size={24} color="hsl(270, 50%, 60%)" />
-              <Text style={{ color: "hsl(270, 50%, 60%)", fontSize: 20, paddingHorizontal: 20}}>KAY'S CROCHET</Text>
+              <Text style={{ color: "hsl(270, 50%, 60%)", fontSize: 20, paddingHorizontal: 20}}>HOME</Text>
               <View style={{ flex: 1 }}></View>
             </View>
           ),
@@ -53,7 +54,7 @@ const { isAuthenticated } = useAuth();
         name="Contact" 
         component={ContactScreen}
         options={{
-          headerTitle: () => <CustomScreenHeader title="KAY'S CROCHET" showBack={true} />, 
+          headerTitle: () => <CustomScreenHeader title="HOME" showBack={true} />, 
           drawerLabel: () => (
             <Text style={{ color: "hsl(270, 50%, 60%)", fontSize: 18 }}>
                 CONTACT
@@ -68,7 +69,7 @@ const { isAuthenticated } = useAuth();
         name="Policies" 
         component={PoliciesScreen}
         options={{
-          headerTitle: () => <CustomScreenHeader title="KAY'S CROCHET" showBack={true}/>, 
+          headerTitle: () => <CustomScreenHeader title="HOME" showBack={true}/>, 
           drawerLabel: () => (
             <Text style={{ color: "hsl(270, 50%, 60%)", fontSize: 18 }}>
                 POLICY
@@ -83,7 +84,7 @@ const { isAuthenticated } = useAuth();
         name="AdminLogin" 
         component={AdminLoginScreen} 
         options={{ 
-          headerTitle: () => <CustomScreenHeader title="Kay's Crochet" showBack={true} />,
+          headerTitle: () => <CustomScreenHeader title="Home" showBack={true} />,
           drawerItemStyle: { height: 0 },
           headerStyle: {
             backgroundColor: '#F8D7DA',
@@ -95,7 +96,7 @@ const { isAuthenticated } = useAuth();
           name="AdminScreen" 
           component={AdminScreen} 
           options={{ 
-            headerTitle: () => <CustomScreenHeader title="Kay's Crochet" showBack={true} />,
+            headerTitle: () => <CustomScreenHeader title="HOME" showBack={true} />,
             drawerItemStyle: { height: 0 },
             headerStyle: {
               backgroundColor: '#F8D7DA',
@@ -107,7 +108,7 @@ const { isAuthenticated } = useAuth();
         name="Notifications" 
         component={NotificationsScreen}
         options={{
-          headerTitle: () => <CustomScreenHeader title="KAY'S CROCHET" showBack={true} />,
+          headerTitle: () => <CustomScreenHeader title="HOME" showBack={true} />,
           drawerLabel: () => (
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Icon name="notifications-active" size={30} color="hsl(270, 50%, 60%)" />

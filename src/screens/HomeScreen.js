@@ -2,13 +2,13 @@ import React from 'react';
 import { SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
 
-// webview to show Kay's Crochet website in the app Home Screen
+// webview to show Search All States' Facts website in the app Home Screen
 const HomeScreen = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar backgroundColor="#F7E7F8" barStyle="dark-content" />
       <WebView 
-        source={{ uri: 'https://www.kayscrochet.us' }} 
+        source={{ uri: 'https://statefunfactsapp-8b273eab827f.herokuapp.com/' }} 
         style={styles.webview}
       />
     </SafeAreaView>
