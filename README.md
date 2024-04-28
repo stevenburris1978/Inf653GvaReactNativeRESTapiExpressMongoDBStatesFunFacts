@@ -13,7 +13,7 @@
 ### This code can be deployed through the iOS App Store external test link.
 
 # Android production Google Play store download url: 
-[Google Play Store Android app Link](https://testflight.apple.com/join/PDHOblFr)
+[Google Play Store Android app Link](https://play.google.com/apps/internaltest/4700875330572731561)
 ### This code can be deployed through the iOS App Store external test link.
 
 # State fun facts Github url for React Native Expo mobile app. Users view in webview and Admin to do Mongodb CRUD operations for the states collection has node js web app with expressServer.js and reat native expo app with server.js : 
@@ -23,17 +23,19 @@
 # States' Fun Facts Heroku url for Home Screen's webview of State Fun Facts Node JS REST api web app with expressServer.js - backend/frontend for displaying all states' fun facts from Mongodb (this link will display the REST API web app alone in a browser):
 [funfacts-backend web app back-end w/front-end Heroku Url](https://statefunfactsapp-8b273eab827f.herokuapp.com)
 
-# funfacts-backend Node REST API directory backup git url wiht expressServer.js :
+# funfacts-backend Node REST API directory backup git url with expressServer.js for Mongodb to get all states' facts for viewing:
 [funfacts-backend Directory Git Url](https://github.com/stevenburris1978/Inf653GvaFinalFunFactsRestApi)
 
-# Backend Heroku url for kayscrochet-backend directory with server.js - mobile app backend for MongoDB add, edit, and delete of state's fun facts(Runs React Native Backend):
+# Backend Heroku url for kayscrochet-backend directory with server.js - mobile app backend for MongoDB add, edit, and delete of states' fun facts(Runs React Native Backend):
 [kayscrochet-backend Directory Heroku Url ](https://statefunfactsmobileapp-0911da4049ba.herokuapp.com)
 
 # *With this app Users can make facts selections for states in the app's webview of the website; and Admin can Add, Edit, Delete state fun facts in Mongodb*
 
-### Admin can add fun facts with images to the app's Notifications Screen and MongoDB states collections. Admin can delete a states collection in the Mongodb, edit each fun fact's description, and delete each fun fact's description.
+## Admin can add fun facts with images to the app's Notifications Screen and MongoDB states collections. Admin can delete a states collection in the Mongodb, edit each fun fact's description, and delete each fun fact's description.
 
-### Android and iOS users can see the State Fun Facts webview at the Home Screen to search state facts and view the Contact, Policy, and new fun facts Notifications screens of the drawer menu navigator.
+### To open the hidden admin login screen, open the app menu left drawer navigator and tap 6 times in less than 2 seconds below the notifications icon.
+
+## Android and iOS users can see the State Fun Facts webview at the Home Screen to search state facts and view the Contact, Policy, and new fun facts Notifications screens of the drawer menu navigator.
 
 ## State Fun Facts also opens with the Expo Go app
 
