@@ -4,7 +4,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const ContactScreen = () => {
     
-    // opens iOS and Android default email app to email s_burris@mail.fhsu.edu@gmail.com
+    // opens iOS and Android default email app to email 
     const handleEmailPress = () => {
         Linking.openURL('mailto:s_burris@mail.fhsu.edu');
     };
