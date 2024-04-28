@@ -8,11 +8,11 @@
 # *State Fun facts mobile app install and setup instructions*
 ## Testers can install State Fun Facts iOS & Android Expo React Native mobile app by 
 
-# iOS production Apple App store download url - Must Download TestFlight app by Apple first then click on this link: 
+# iOS production Apple App Store download url - Must Download TestFlight app by Apple first then click on this link: 
 [TestFlight iOS App Store Link](https://testflight.apple.com/join/PDHOblFr)
 ### This code can be deployed through the iOS App Store external test link.
 
-# Android production Google Play store download url: 
+# Android production Google Play Store download url: 
 [Google Play Store Android app Link](https://play.google.com/apps/internaltest/4700875330572731561)
 ### This code can be deployed through the iOS App Store external test link.
 
