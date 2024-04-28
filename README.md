@@ -14,7 +14,7 @@
 
 # Android production Google Play Store download url: 
 [Google Play Store Android app Link](https://play.google.com/apps/internaltest/4700875330572731561)
-### This code can be deployed through the iOS App Store external test link.
+### This code can be deployed through the Google Play Store internal test link.
 
 # State fun facts Github url for React Native Expo mobile app. Users view in webview and Admin to do Mongodb CRUD operations for the states collection has node js web app with expressServer.js and reat native expo app with server.js : 
 [Final Project Git Url](https://github.com/stevenburris1978/Inf653GvaReactNativeRESTapiExpressMongoDBStatesFunFacts)
