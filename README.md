@@ -16,15 +16,18 @@
 [Google Play Store Android Test Link](https://testflight.apple.com/join/PDHOblFr)
 ### This code can be deployed through the iOS App Store external test link.
 
-# State fun facts kayscrochet-backend and State Fun Facts Github url for mobile app Admin to do Mongodb CRUD operatiosn for the states collection: 
-[Gituhb Final Project]()
+# State fun facts Github url for React Native Expo mobile app. Users view in webview and Admin to do Mongodb CRUD operations for the states collection: 
+[Final Project Git Url](https://github.com/stevenburris1978/Inf653GvaReactNativeRESTapiExpressMongoDBStatesFunFacts)
 ### This code can be deployed locally with Expo Go or through the iOS App Store and Google Play Store links provided.
 
-# States' Fun Facts Heroku url for Home Screen's webview of State Fun Facts Node JS REST api web app with expressServer.js - backend for displaying all states' fun facts from Mongodb:
-[StateFunFacts REST API web app back-end w/front-end](https://statefunfactsapp-8b273eab827f.herokuapp.com)
+# States' Fun Facts Heroku url for Home Screen's webview of State Fun Facts Node JS REST api web app with expressServer.js - backend/frontend for displaying all states' fun facts from Mongodb (this link will display the REST API web app alone in a browser):
+[funfacts-backend web app back-end w/front-end](https://statefunfactsapp-8b273eab827f.herokuapp.com)
 
-# Backend Heokru url for kayscrochet-backend directory with server.js -  mobile app backend for MongoDB add, edit, and delete of state's fun facts:
-[States' Fun Facts Expo React Native mobile app back-end ](https://statefunfactsmobileapp-0911da4049ba.herokuapp.com)
+# funfacts-backend submodule directory git url :
+[funfacts-backend Submodule Git Url](https://github.com/stevenburris1978/Inf653GvaFinalFunFactsRestApi)
+
+# Backend Heroku url for kayscrochet-backend submodule directory with server.js - mobile app backend for MongoDB add, edit, and delete of state's fun facts:
+[kayscrochet-backend-backend submodule git url ](https://statefunfactsmobileapp-0911da4049ba.herokuapp.com)
 
 # *With this app Users can make facts selections for states in the app's webview of the website; and Admin can Add, Edit, Delete state fun facts in Mongodb*
 
