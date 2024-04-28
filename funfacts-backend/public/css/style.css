@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 24px;
+    min-height: 100vh;
+    color: hsl(270, 50%, 60%);
+    background-color: #F7E7F8;
+    width: 100%;
+    padding: 2.4%;
+}
+
+header {
+    border: 0.1rem solid hsl(270, 50%, 60%);
+    border-radius: 0.3125rem;
+    padding: 0.3125rem;
+}
+
+.stateList {
+    border: 0.1rem solid hsl(270, 50%, 60%);
+    border-radius: 0.3125rem;
+    padding: 0.3125rem;
+    margin-top: 1%;
+    overflow-wrap: break-word; 
+}
+
+button {
+    border-radius: 0.15rem;
+    height: 1.6rem;
+    width: 9.3rem;
+    background-color: #F7E7F8;
+    border: 0.1rem solid hsl(270, 50%, 60%);
+    cursor: pointer;
+    color: hsl(270, 50%, 60%); 
+}
+
+select {
+    border-radius: 0.15rem;
+    height: 1.6rem;
+    width: 9.3rem;
+    background-color: #F7E7F8;
+    border: 0.1rem solid hsl(270, 50%, 60%);
+    cursor: pointer; 
+    color: hsl(270, 50%, 60%); 
+}
+
+input {
+    border-radius: 0.15rem;
+    height: 1.6rem;
+    width: 9.3rem;
+    background-color: #F7E7F8;
+    border: 0.1rem solid hsl(270, 50%, 60%);
+    cursor: pointer; 
+    color: hsl(270, 50%, 60%); 
+}

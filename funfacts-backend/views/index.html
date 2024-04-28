@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>State Fun Facts</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Search All States' Facts</h1>
+    
+        <div>
+            <p>Please select a fact, then select a state.</p>
+            <p>FACT:</p>
+            <select id="factSelector">
+                <option value="">All States' Facts</option>
+                <option value="contiguous">Contiguous</option>
+                <option value="noncontiguous">Non-contiguous</option>
+                <option value="one">One State Facts</option>
+                <option value="funfact">Fun Fact</option>
+                <option value="capital">Capital</option>
+                <option value="nickname">Nickname</option>
+                <option value="population">Population</option>
+                <option value="admission">Admission Date</option>
+            </select><br>
+            <p>STATE:</p>
+            <select id="stateSelector" disabled>
+                <option value="">All States</option>
+            </select><br>
+            <button id="submitState">Show Facts</button><br>
+        </div>
+    </header>
+    <div id="funFactManager" style="display: none;">
+        <input type="text" id="newFunFact" placeholder="Type new fun fact here...">
+        <button id="addFunFact">Add Fun Fact</button>
+        <div id="currentFunFacts"></div>
+    </div>    
+    <div class="stateList">
+        <div id="stateInfo"></div>
+        <div id="statesList"></div>
+    </div>
+
+<script src="/js/loadStates.js"></script>
+</body>
+</html>

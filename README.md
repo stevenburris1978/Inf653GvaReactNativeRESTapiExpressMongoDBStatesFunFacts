@@ -13,7 +13,7 @@
 ### This code can be deployed through the iOS App Store external test link.
 
 # Android production Google Play store download url: 
-[Google Play Store Androidadd Link](https://testflight.apple.com/join/PDHOblFr)
+[Google Play Store Android app Link](https://testflight.apple.com/join/PDHOblFr)
 ### This code can be deployed through the iOS App Store external test link.
 
 # State fun facts Github url for React Native Expo mobile app. Users view in webview and Admin to do Mongodb CRUD operations for the states collection: 
