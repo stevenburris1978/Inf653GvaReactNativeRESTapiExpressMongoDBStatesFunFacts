@@ -1,9 +1,8 @@
-## INF653GVA - Back-end Development I
 # Steven Burris
 # 4/27/2024
-# *Final Project - State Fun Facts React Native Expo iOS and Android App - Production with EAS build*
+# *State Fun Facts React Native Expo iOS and Android App - Production with EAS build*
 # *State Fun Facts mobile app uses Express server with Heroku and Mongodb database for the backend, Bcrypt to hash the admin passwords, edit state fun facts info in the mongodb*
-# *State Fun Facts has a Node JavaScript REST API web app in the webview of the Home Screen for searching state fun facts and is in the funfacts-backend directory*
+# *State Fun Facts has a Node JS REST API web app in the webview of the Home Screen for searching state fun facts and is in the funfacts-backend directory*
 
 # *State Fun facts mobile app install and setup instructions*
 ## Testers can install State Fun Facts iOS & Android Expo React Native mobile app by 
@@ -20,7 +19,7 @@
 [Final Project Git Url](https://github.com/stevenburris1978/Inf653GvaReactNativeRESTapiExpressMongoDBStatesFunFacts)
 ### This code can be deployed locally with Expo Go or through the iOS App Store and Google Play Store links provided.
 
-# States' Fun Facts Heroku url for Home Screen's webview of State Fun Facts Node JS REST api web app with expressServer.js - backend/frontend for displaying all states' fun facts from Mongodb (this link will display the REST API web app alone in a browser):
+# States' Fun Facts Heroku url for Home Screen's webview of State Fun Facts Node JS REST API web app with expressServer.js - backend/frontend for displaying all states' fun facts from Mongodb (this link will display the REST API web app alone in a browser):
 [funfacts-backend web app back-end w/front-end Heroku Url](https://statefunfactsapp-8b273eab827f.herokuapp.com)
 
 # funfacts-backend Node REST API directory backup git url with expressServer.js for Mongodb to get all states' facts for viewing:
